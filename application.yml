@@ -1,0 +1,58 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/online-edu-platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 240401
+  # Redis配置已禁用，因为Redis服务未启动
+  # redis:
+  #   host: localhost
+  #   port: 6379
+  #   password: 
+  #   database: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    # 配置静态资源访问路径
+    static-path-pattern: /**
+  # 配置静态资源位置
+  resources:
+    static-locations: classpath:/static/
+  profiles:
+    active: dev
+
+# 前端配置
+frontend:
+  port: 3000
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.onlineeduplatform.onlineeduplatform.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+server:
+  port: 8084
+  # 移除context-path，让后端直接在根路径下提供服务
+  # servlet:
+  #   context-path: /api
+
+logging:
+  level:
+    com.onlineeduplatform.onlineeduplatform: debug
+    com.baomidou.mybatisplus: debug
+
+jwt:
+  secret: online-edu-platform-secret-key
+  expiration: 3600000
+  refresh-expiration: 86400000
